@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import * as Font from 'expo-font';
-import { AppLoading } from 'expo';
+import React, { useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import * as Font from 'expo-font'
+import AppLoading from 'expo-app-loading'
 import { store } from './store/configureStore'
-import { Provider } from 'react-redux';
-import MainNavigator from './navigation/mainNavigator';
+import { Provider } from 'react-redux'
+import MainNavigator from './navigation/mainNavigator'
 import UpdateLocation from './services/updateLocation'
-
-
 
 const fetchFonts = () => {
   Font.loadAsync({
@@ -16,24 +14,24 @@ const fetchFonts = () => {
   })
 }
 
-
 export default function App() {
-
   const [fontLoaded, setFontLoaded] = useState(false)
 
-  if(!fontLoaded) {
+  if (!fontLoaded) {
     return (
-      <AppLoading 
+      <AppLoading
         startAsync={fetchFonts}
-        onFinish={() => setFontLoaded(true)}></AppLoading>
+        onFinish={() => setFontLoaded(true)}
+        onError={console.warn}
+      ></AppLoading>
     )
   }
   return (
     <Provider store={store}>
       {/* <UpdateLocation/> */}
-      <MainNavigator/>
+      <MainNavigator />
     </Provider>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -41,6 +39,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    justifyContent: 'center'
+  }
+})
